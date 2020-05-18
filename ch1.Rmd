@@ -1,0 +1,49 @@
+---
+title: "Ch1-3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load-packages}
+
+library(ggplot2)
+
+```
+
+```{r ch1-3-1}
+data <- rt(n = 100, df = 5)
+data
+```
+
+
+
+
+```{r ch1-3-2}
+
+summary(data)
+hist(data)
+abline(v = median(data), lty = 2, col = "red")
+
+```
+
+
+
+```{r ch1-3-3}
+
+boxplot(data)
+title(main = "Boxplot of data")
+abline(h = median(data), lty = 2, col = "red")
+
+```
+
+
+
+
+```{r ch1-3-4}
+
+stem(data)
+
+```

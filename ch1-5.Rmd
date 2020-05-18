@@ -1,0 +1,57 @@
+---
+title: "ch1-5"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load-packages}
+
+library(ggplot2)
+library(GGally)
+library(HSAUR2)
+library(MVA)
+library(aplpack)
+
+```
+
+```{r ch1-5-1-ggpairs}
+data("USairpollution")
+ggpairs(USairpollution,
+        lower = list(continuous = wrap("smooth", alpha = 0.3)),
+        diag = list(discrete="barDiag", 
+                    continuous = wrap("densityDiag", alpha = 0.5 )))
+str(USairpollution)
+
+```
+
+```{r ch1-5-1-stars}
+
+stars(USairpollution)
+
+```
+
+```{r ch1-5-2-facess}
+
+faces(USairpollution, face.type = 1)
+
+
+```
+
+```{r ch1-5-2}
+x <- USairpollution[,c("temp", "wind")]
+bvbox(x, xlab = "temp", ylab = "wind")
+title(main = "Bivariate boxplot for USairpollution")
+identify(x)
+```
+
+```{r ch1-5-3}
+plot(popul ~ manu, data = USairpollution, pch = 9)
+with(USairpollution, symbols(manu, popul, circles = SO2, 
+                             inches = 0.5, add = TRUE))
+title(main = "Bubble plot for USairpollution")
+
+summary(lm(SO2 ~ manu+popul, data = USairpollution))
+```
