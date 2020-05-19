@@ -20,7 +20,6 @@ library(aplpack)
 library(dplyr)
 library(ade4)
 library(pander)
-install.packages("ggbiplot")
 
 ```
 
@@ -50,5 +49,9 @@ biplot(crime_pca)
 # first loading vector places approximately equal weight on Assault, Murder and Rape, with much less weight on urbanpop. Hence this component roughly corresponds to a measure of overall rates of serious crimes.
 #주성분 2는 주성분 1에 비해 UrbanPop의 영향이 크게 나타남
 #첫 번째 주성분의 값이 작을수록 세 가지 범죄 발생율이 큰 주이고, 두 번째 주성분 값이 작을수록 도심인구 비율이 큰 주라고 해석 할 수 있음.
+# 범죄 변수 끼리는 연관. Urabnpop variable is less correlated with the other three.
 
 ```
+
+
+https://rpubs.com/njvijay/27823
