@@ -31,25 +31,15 @@ crime2 <- crime[,-1]
 
 summary(crime2)
 
-# 상관계수 행렬 사용하여 주성분 분석 수행
 crime_pca <- princomp(crime2, cor = TRUE, scores = TRUE)
 
-# identify coverage of variance in dataset by individual principal components
 summary(crime_pca, loading = TRUE)
-# PC1 explains 62% of variance and PC2 explains 24%
-# 주성분1이 총 분산의 62% 설명, 주성분2까지 86.8% 설명
-# Y1 = 0.536Murder + 0.583Assault + 0.278UrbanPop + 0.543Rape
-# Y2 = 0.418Murder + 0.188Assault - 0.873UrbanPop - 0.167Rape
+
+crime_pca$sdev^2
 
 screeplot(crime_pca, type = "lines")
-# 총 분산의 비율 86.8%까지 설명하며, Scree plot 기울기가 완만해지는 주성분 2까지를 선택
 
 biplot(crime_pca)
-# 주성분 1이 Assault, Murder, Rape와 비슷한 방향(가중치가 상대적으로 큰), UrbanPop과 수직
-# first loading vector places approximately equal weight on Assault, Murder and Rape, with much less weight on urbanpop. Hence this component roughly corresponds to a measure of overall rates of serious crimes.
-#주성분 2는 주성분 1에 비해 UrbanPop의 영향이 크게 나타남
-#첫 번째 주성분의 값이 작을수록 세 가지 범죄 발생율이 큰 주이고, 두 번째 주성분 값이 작을수록 도심인구 비율이 큰 주라고 해석 할 수 있음.
-# 범죄 변수 끼리는 연관. Urabnpop variable is less correlated with the other three.
 
 ```
 
