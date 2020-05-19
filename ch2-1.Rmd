@@ -48,9 +48,6 @@ ggpairs(data, lower = list(continuous = GGally::wrap("smooth", alpha = 0.3, size
 ```{r ch2-1-3}
 
 data_pca <- princomp(data, cor = TRUE, scores = TRUE)
-
-?princomp
-
 data_pca$sdev^2 #고유근
 
 summary(data_pca)
