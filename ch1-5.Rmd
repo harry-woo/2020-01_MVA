@@ -59,3 +59,6 @@ title(main = "Bubble plot for USairpollution")
 
 summary(lm(SO2 ~ manu + popul, data = USairpollution))
 ```
+
+
+https://rpubs.com/nevret/424576
