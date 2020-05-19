@@ -14,6 +14,7 @@ library(GGally)
 library(HSAUR2)
 library(MVA)
 library(aplpack)
+library(dplyr)
 
 ```
 
@@ -29,22 +30,25 @@ str(USairpollution)
 
 ```{r ch1-5-1-stars}
 
-stars(USairpollution)
+stars(USairpollution, main = "Star plot for USairpollution",
+      nrow = 6, key.loc = c(- 1, 12), cex = 0.8, lwd = 2)
 
 ```
 
 ```{r ch1-5-2-facess}
 
-faces(USairpollution, face.type = 1)
-
+faces(USairpollution, main = "Chernoff faces for USairpollution",
+      nrow.plot = 6, face.type = 1, cex = 1.5)
 
 ```
 
 ```{r ch1-5-2}
-x <- USairpollution[,c("temp", "wind")]
-bvbox(x, xlab = "temp", ylab = "wind")
-title(main = "Bivariate boxplot for USairpollution")
-identify(x)
+
+x <- USairpollution %>% select(temp, wind)
+bvbox(x, xlab = "temp", ylab = "wind",
+      main = "Bivariate boxplot for USairpollution")
+text(x, labels = row.names(x), cex=0.7)
+
 ```
 
 ```{r ch1-5-3}
@@ -53,5 +57,5 @@ with(USairpollution, symbols(manu, popul, circles = SO2,
                              inches = 0.5, add = TRUE))
 title(main = "Bubble plot for USairpollution")
 
-summary(lm(SO2 ~ manu+popul, data = USairpollution))
+summary(lm(SO2 ~ manu + popul, data = USairpollution))
 ```
