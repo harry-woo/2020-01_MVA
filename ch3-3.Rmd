@@ -1,0 +1,79 @@
+---
+title: "ch3-3"
+author: "Harry Woo"
+date: '2020 5 20 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r load-packages}
+
+library(ggplot2)
+library(GGally)
+library(HSAUR2)
+library(MVA)
+library(aplpack)
+library(dplyr)
+library(ade4)
+library(pander)
+library(psych)
+library(GPArotation)
+
+```
+
+```{r ch3-2-1}
+
+bb <- read.csv(file = "c:/beer.csv", header = TRUE)
+row.names(bb) <- bb[, 2]
+bb <- bb[, 3:6]
+
+bb_factor <- principal(bb, rotate = "none")
+bb_factor$values #eigenvalue
+plot(bb_factor$values, type = "b") #scree plot
+
+principal(bb, nfactors = 2, rotate = "none")
+
+bb_factor2 <- principal(bb, nfactors = 2, rotate = "none")
+print(bb_factor2$loadings[1:4,1:2], digits = 2)
+
+bb_factor2$uniquenesses
+
+```
+
+```{r ch3-2-2}
+
+bb_factor2 <- principal(bb, nfactors = 2, rotate = "none")
+bb_Varimax <- principal(bb, nfactors = 2, rotate = "Varimax")
+bb_Promax <- principal(bb, nfactors = 2, rotate = "Promax")
+
+before_after <- cbind(bb_factor2$loadings[1:4, 1:2],
+      bb_Varimax$loadings[1:4, 1:2],
+      bb_Promax$loadings[1:4, 1:2])
+colnames(before_after) <- c("PC1_before","PC2_before","PC1_Varimax","PC2_Varimax", "PC1_Promax", "PC2_Promax")
+print(before_after, digits = 2)
+
+bb_Varimax
+bb_Promax
+
+cbind(bb, bb_Varimax$scores)
+
+```
+
+```{r ch3-2-4}
+
+biplot(bb_Varimax, cex = 0.7, main = NA)
+?biplot
+
+ggpairs(bb, lower = list(continuous = GGally::wrap("smooth", alpha = 0.3)))
+
+bbp <- princomp(bb,)
+summary(bbp)
+biplot(bbp, cex = 0.7)
+
+```
+

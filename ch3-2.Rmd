@@ -1,0 +1,63 @@
+---
+title: "ch3-2"
+author: "Harry Woo"
+date: '2020-5-19'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load-packages}
+
+library(ggplot2)
+library(GGally)
+library(HSAUR2)
+library(MVA)
+library(aplpack)
+library(dplyr)
+library(ade4)
+library(pander)
+library(psych)
+library(GPArotation)
+
+```
+
+```{r ch3-2-1}
+
+fs <- read.csv(file = "c:/favoritesubjects.csv", header = TRUE)
+row.names(fs) <- fs[, 1]
+fs <- fs[, 2:7]
+
+fs_factor <- principal(fs, rotate = "none")
+fs_factor$values #eigenvalue
+plot(fs_factor$values, type = "b") #scree plot
+
+principal(fs, nfactors = 3, rotate = "none")
+
+principal(fs, nfactors = 2, rotate = "none")
+
+fs_factor2 <- principal(fs, nfactors = 2, rotate = "none")
+print(fs_factor2$loadings[1:6,1:2], digits = 2)
+
+fs_factor2$uniquenesses
+
+```
+
+```{r ch3-2-2}
+
+fs_Varimax <- principal(fs, nfactors = 2, rotate = "Varimax")
+fs_Varimax
+
+fs_Promax <- principal(fs, nfactors = 2, rotate = "Promax")
+fs_Promax
+
+```
+
+```{r ch3-2-4}
+
+biplot(fs_Varimax, main = NA)
+
+```
