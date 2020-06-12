@@ -25,7 +25,7 @@ confm_lda
 error <- 1 - sum(diag(confm_lda))/sum(confm_lda)
 error
 
-# 변수선택 가능? 안되는데?
+# 변수선택 가능? 안되는데? 안되는게 정상이라고.
 # city_forward <- greedy.wilks(type ~ ., data = city, niveau = 0.01)
 
 # 분류함수
