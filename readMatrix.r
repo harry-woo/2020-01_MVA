@@ -28,7 +28,7 @@ readMatrix <- function()
              DistanceArray <- data.m
  
      
-     DistanceArray = 10 - DistanceArray
+     DistanceArray = DistanceArray
 
 
      MD <- matrix(0, nrow=n, ncol=n)

@@ -1,4 +1,7 @@
+library(MASS) # for menarche
 library(dplyr)
+
+rm(list = ls())
 
 data(menarche)
 head(menarche)
@@ -18,9 +21,12 @@ plot(Menarche/Total ~ Age, data = menarche, pch = 19)
 lines(menarche$Age, mnc_glm$fitted, type = "l", col = "blue")
 title(main = "Menarche Data with Fitted Logistic Regression Line")
 
-predict(mnc_glm, newdata = menarche, type = "resp")
+prediction <- ifelse(predict(mnc_glm, newdata = menarche, type = "resp") < 0.5, "No", "Yes")
 
-menarche %>% 
-  mutate(fit = mnc_glm$fitted * Total)
+menarche2 <- menarche %>% 
+  mutate(ratio = ifelse(Menarche/Total < 0.5, "No", "Yes"), fit = prediction)
 
-?menarche
+confm_mnc <- table(menarche2$ratio, menarche2$fit)
+
+error <- 1 - sum(diag(confm_mnc))/sum(confm_mnc)
+error
