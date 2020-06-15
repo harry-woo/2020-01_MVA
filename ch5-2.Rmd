@@ -1,48 +1,58 @@
+---
+title: "ch5-2"
+author: "Harry Woo"
+date: '2020 6 16 '
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+rm(list = ls())
 library(dplyr)
 library(ggplot2)
 library(ggrepel)
 library(smacof)
+```
 
-rm(list = ls())
-
-source("readMatrix.r")
-city <- readMatrix()
-E:/KNOU-MVA/citydist.txt
-2
-10
-city_name <- scan("E:/KNOU-MVA/cityname.txt", what = "")
-colnames(city) <- city_name
-rownames(city) <- city_name
-city
-
+```{r}
+# source("readMatrix.r")
+# city <- readMatrix()
+# E:/KNOU-MVA/citydist.txt
+# 2
+# 10
+# city_name <- scan("E:/KNOU-MVA/cityname.txt", what = "")
+# colnames(city) <- city_name
+# rownames(city) <- city_name
+# city
 
 data(UScitiesD)
 str(UScitiesD)
 attributes(UScitiesD)
-city2 <- UScitiesD
-city2[44] <- 2422
-city2[44]
-city == as.matrix(city2)
+city <- UScitiesD
+city[44] <- 2422
+city[44]
+city <- as.matrix(city)
+```
 
-# https://jbhender.github.io/Stats506/F17/MatrixDecompositions.html
-# UScitiesD
-
-# 거리행렬 만들기
-# str(UScitiesD)
-# dist <- as.matrix(UScitiesD)
-# dist
-# city == dist
-
+```{r}
 # cmdscale 실행 (2차원, 지도상의 거리)
 MDS1 <- cmdscale(city, k = 2)
 MDS1
+```
 
+```{r}
 data.frame(D1 = MDS1[,1], D2 = MDS1[,2]) %>% 
   ggplot(aes(x = D1, y = D2, label = row.names(MDS1))) + 
   geom_point(pch = 12, size = 3) + 
   geom_text_repel(size = 5, colour = "steelblue")
+```
 
-
+```{r}
 # Plot
 MDS1 <- -1 * MDS1 # 실제 위치에 맞추기 위해 rotate
 
@@ -56,11 +66,15 @@ data.frame(D1 = MDS1[,1], D2 = MDS1[,2]) %>%
   ylab("<< South  --------------    North >>") +
   ggtitle("Distance among US Cities", subtitle = "by cmdscale") +
   theme_bw()
+```
 
+```{r}
 # smacofSym 활용
 MDS2 <- smacofSym(city, ndim = 2)
 attributes(MDS2)
+```
 
+```{r}
 # Plot
 MDS2$conf <- -1 * MDS2$conf # 실제 위치에 맞추기 위해 rotate
 
@@ -74,11 +88,15 @@ data.frame(D1 = MDS2$conf[,1], D2 = MDS2$conf[,2]) %>%
   ylab("<< South  --------------    North >>") +
   ggtitle("Distance among US Cities", subtitle = "by smacof") +
   theme_bw()
+```
 
+```{r}
 # Stress Value : 0.05~0.10 만족, 0~0.05 매우좋음
 # smacof 버전의 차이로 보임, 최신 버전에는 stress.m 이 없음 (m : metric)
 MDS2$stress # 매우 좋음
+```
 
+```{r}
 # Scree plot
 MDS2.1 <- smacofSym(city, ndim = 1)
 MDS2.2 <- smacofSym(city, ndim = 2)
@@ -88,9 +106,12 @@ MDS2.4 <- smacofSym(city, ndim = 4)
 stress_value = c(MDS2.1$stress, MDS2.2$stress, MDS2.3$stress, MDS2.4$stress)
 plot(stress_value, type = "l", main = "Scree plot", ylab = "Stress Value")
 points(stress_value, cex = 0.9)
+```
 
+```{r}
 # 적합도
 # z01dist <- (MDS2$delta - min(MDS2$delta))/(max(MDS2$delta) - min(MDS2$delta))
 
 plot(MDS2$delta, MDS2$confdist,
      xlab = "Observed distance", ylab = "Configuration distance")
+```
