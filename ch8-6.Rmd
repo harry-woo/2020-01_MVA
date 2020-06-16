@@ -56,15 +56,17 @@ mnc_plot + geom_line(aes(x = Age, y = mnc_glm$fitted), lwd = 1.2, colour = "roya
 ```{r}
 
 prediction <- ifelse(predict(mnc_glm, menarche, type = "response") > 0.5, TRUE, FALSE)
-table(as.numeric(prediction), as.numeric(as.logical(mnc_glm$y)))
+actual <- ifelse(menarche$Menarche/menarche$Total > 0.5, TRUE, FALSE)
 
-menarche2 <- menarche %>% 
-  mutate(ratio = ifelse(Menarche/Total < 0.5, "No", "Yes"), fit = prediction)
-confm_mnc <- table(menarche2$ratio, menarche2$fit)
+confu_mat <- table(as.numeric(prediction), as.numeric(actual))
+confu_mat
 
-error <- 1 - sum(diag(confm_mnc))/sum(confm_mnc)
+error <- 1 - sum(diag(confu_mat))/sum(confu_mat)
 error
 
-mnc_glm$y == menarche$Menarche/menarche$Total
+# table(as.numeric(prediction), as.numeric(as.logical(mnc_glm$y)))
+# menarche2 <- menarche %>% mutate(ratio = ifelse(Menarche/Total < 0.5, "No", "Yes"), fit = prediction)
+# confu_mat <- table(menarche2$ratio, menarche2$fit)
+# mnc_glm$y == menarche$Menarche/menarche$Total
 
 ```
