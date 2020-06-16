@@ -46,7 +46,8 @@ tree
 plot(tree, uniform = TRUE, compress = TRUE, margin = 0.1)
 text(tree, use.n = TRUE, col = "blue")
 
-fancyRpartPlot(tree, main = "rpart trees of iris \n", caption = "", type = 1)
+fancyRpartPlot(tree, main = "rpart trees of iris \n", caption = "", 
+               type = 1, digits = 3)
 
 ```
 
@@ -75,7 +76,8 @@ tree2
 plot(tree2, uniform = TRUE, compress = TRUE, margin = 0.1)
 text(tree2, use.n = TRUE, col = "blue")
 
-fancyRpartPlot(tree2, main = "rpart trees of iris \n", caption = "", type = 1)
+fancyRpartPlot(tree2, main = "rpart trees of iris \n", caption = "", 
+               type = 1, digits = 3)
 
 ```
 
