@@ -3,8 +3,8 @@ title: "ch8-6"
 author: "Harry Woo"
 date: '2020 6 16 '
 output:
-  html_document: default
   word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -18,8 +18,6 @@ library(MASS) # for menarche
 library(dplyr)
 library(ggplot2)
 library(gt)
-library(RWeka)
-library(caret)
 
 ```
 
@@ -58,7 +56,8 @@ mnc_plot + geom_line(aes(x = Age, y = mnc_glm$fitted), lwd = 1.2, colour = "roya
 prediction <- ifelse(predict(mnc_glm, menarche, type = "response") > 0.5, TRUE, FALSE)
 actual <- ifelse(menarche$Menarche/menarche$Total > 0.5, TRUE, FALSE)
 
-confu_mat <- table(as.numeric(prediction), as.numeric(actual))
+confu_mat <- table(as.numeric(prediction), as.numeric(actual),
+                   dnn = c("Prediction", "Actual"))
 confu_mat
 
 error <- 1 - sum(diag(confu_mat))/sum(confu_mat)
