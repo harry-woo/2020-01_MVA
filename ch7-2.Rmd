@@ -2,14 +2,16 @@
 title: "ch7-2"
 author: "Harry Woo"
 date: '2020 6 16 '
-output: html_document
+output:
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 rm(list = ls())
 library(MASS)
 library(klaR)
