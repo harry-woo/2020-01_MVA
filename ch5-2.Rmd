@@ -70,7 +70,7 @@ data.frame(D1 = MDS1[,1], D2 = MDS1[,2]) %>%
 
 ```{r}
 # smacofSym 활용
-MDS2 <- smacofSym(city, ndim = 2)
+MDS2 <- smacofSym(city, ndim = 2, type = "ordinal")
 attributes(MDS2)
 ```
 

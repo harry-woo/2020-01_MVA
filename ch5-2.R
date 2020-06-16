@@ -58,8 +58,9 @@ data.frame(D1 = MDS1[,1], D2 = MDS1[,2]) %>%
   theme_bw()
 
 # smacofSym 활용
-MDS2 <- smacofSym(city, ndim = 2)
+MDS2 <- smacofSym(city, ndim = 2, type = "ordinal")
 attributes(MDS2)
+??smacofSym
 
 # Plot
 MDS2$conf <- -1 * MDS2$conf # 실제 위치에 맞추기 위해 rotate

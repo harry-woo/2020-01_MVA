@@ -3,8 +3,8 @@ title: "ch7-2"
 author: "Harry Woo"
 date: '2020 6 16 '
 output:
-  html_document: default
   word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -48,7 +48,10 @@ error
 ```
 
 # 변수선택 가능? 안되는데? 안되는게 정상이라고.
-# city_forward <- greedy.wilks(type ~ ., data = city, niveau = 0.01)
+```{r}
+# city_forward <- greedy.wilks(type ~ ., data = city)
+# ?greedy.wilks
+```
 
 ```{r}
 # 분류함수
@@ -63,11 +66,18 @@ X2 <- X %>%
          mer = -12.702302 + 0.365933 * population + 0.526113 * pollution) %>% 
   mutate(type = city$type, type2 = ifelse(ind > mer, "ind", "mer"))
 
+sum(as.data.frame(pred_lda$class) == X2["type2"])/nrow(X2)
+
 head(X2) %>% gt()
+
+X2
+X2["type"] == X2["type2"]
 
 confu_mat2 <- table(X2$type, X2$type2)
 confu_mat2
 
 error <- 1 - sum(diag(confu_mat2))/sum(confu_mat2)
 error
+
+
 ```
